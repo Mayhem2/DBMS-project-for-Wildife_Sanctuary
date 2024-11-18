@@ -129,9 +129,9 @@ def main():
         }
         selected_package = st.selectbox("Select a Package", list(package_options.keys()))
 
-        group_size = st.number_input("Number of People in Group", min_value=1, max_value=10, step=1)
-        min_age = st.number_input("Minimum Age in Group", min_value=5, step=1)
-        max_age = st.number_input("Maximum Age in Group", min_value=5, step=1)
+        group_size = st.number_input("Number of People in Group", min_value=1, step=1)
+        min_age = st.number_input("Minimum Age in Group", step=1)
+        max_age = st.number_input("Maximum Age in Group", step=1)
 
         # "Calculate Price" Button (using submit button for calculation)
         calculate_price = st.form_submit_button("Calculate Price")
