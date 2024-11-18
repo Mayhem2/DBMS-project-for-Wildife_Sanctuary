@@ -106,7 +106,7 @@ def register_tourist(data):
 # Main application
 def main():
     # Add background image
-    add_custom_styles(r"C:/Users/Barath/Downloads/Student_copy/background.jpg")  # Replace with the actual path to your image
+    add_custom_styles("background.jpg")  # Replace with the actual path to your image
 
     st.title("Wildlife Sanctuary Tour Registration")
     st.header("Register for a Tour")
