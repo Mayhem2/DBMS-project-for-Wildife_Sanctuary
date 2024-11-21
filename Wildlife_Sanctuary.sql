@@ -1,6 +1,5 @@
 CREATE DATABASE wildlife_sanctuary;
 USE wildlife_sanctuary;
-
 CREATE TABLE habitat (
     habitat_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
@@ -339,7 +338,7 @@ BEGIN
 
     IF tourist_count >= tour_guide_limit THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Tourist limit for the day reached (based on number of tour guides)';
+        SET MESSAGE_TEXT = 'We apologise, that day is fully booked';
     END IF;
 END//
 
@@ -368,13 +367,23 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE TRIGGER check_min_max_age
+CREATE TRIGGER check_min_age
 BEFORE INSERT ON tourist
 FOR EACH ROW
 BEGIN
-    IF NEW.minimum_age < 5 OR NEW.maximum_age < 5 THEN
+    IF NEW.minimum_age < 5 THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: minimum_age and maximum_age cannot be less than 5';
+        SET MESSAGE_TEXT = 'Error: Minimum age cannot be less than 5';
+    END IF;
+END//
+
+CREATE TRIGGER check_max_age
+BEFORE INSERT ON tourist
+FOR EACH ROW
+BEGIN
+    IF NEW.maximum_age < 18 OR NEW.maximum_age >60 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: Maximum age has to be between 18 and 60';
     END IF;
 END//
 
